@@ -3,8 +3,30 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.30110.0
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{996ECA7C-1937-446A-8FC0-BAB9CB84B4B4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B9C040E5-9EAA-462B-8A88-7E7DFFE90D1C}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "LowRezJam", "src\LowRezJam\LowRezJam.fsproj", "{FF8771B4-9508-4259-8BAE-1FE54E244EFE}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FF8771B4-9508-4259-8BAE-1FE54E244EFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF8771B4-9508-4259-8BAE-1FE54E244EFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF8771B4-9508-4259-8BAE-1FE54E244EFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF8771B4-9508-4259-8BAE-1FE54E244EFE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FF8771B4-9508-4259-8BAE-1FE54E244EFE} = {996ECA7C-1937-446A-8FC0-BAB9CB84B4B4}
 	EndGlobalSection
 EndGlobal
