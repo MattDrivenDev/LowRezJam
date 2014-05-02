@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Game.fs" />
+    <Compile Include="Program.fs" />
     <None Include="App.config" />
     <Content Include="..\..\content\pixel.xnb">
       <Link>pixel.xnb</Link>
