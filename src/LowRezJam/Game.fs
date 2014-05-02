@@ -1,16 +1,26 @@
 ﻿module LowRezJam
+open Domain
+open IO
 open Microsoft.Xna.Framework
 open Microsoft.Xna.Framework.Graphics
+
+// ----------------------------------------------------------------------------
+// NOTES:
+// Here lies the horrible OOP part of the game. The goal here is to minimize
+// the imperative style and simple publish events and store mutable state
+// that can then flow through the pure functions throughout the game.
+// ----------------------------------------------------------------------------
 
 type LowRezGame() as this = 
   inherit Game()
   
-  let scale x = x * 20
   let graphics = new GraphicsDeviceManager(this)
-  let mutable spritebatch = Unchecked.defaultof<_>
+  let mutable spritebatch = Option<SpriteBatch>.None
   let mutable pixel = Unchecked.defaultof<_>
-  let rect = new Rectangle(x = scale 10, y = scale 10, width = scale 1, height = scale 1)
-  let updateEvent = new Event<GameTime>()
+  let gameEvent = new Event<GameEvent>()
+
+  let readPlayerInput() = 
+    Microsoft.Xna.Framework.Input.Keyboard.GetState() |> readPlayerInput
 
   do    
     graphics.PreferredBackBufferWidth <- scale 32
@@ -18,17 +28,18 @@ type LowRezGame() as this =
     graphics.GraphicsProfile <- GraphicsProfile.HiDef
     graphics.IsFullScreen <- false
 
-  member this.Updating = updateEvent.Publish
+  member this.Events = gameEvent.Publish
 
   override this.LoadContent() = 
-    spritebatch <- new SpriteBatch(graphics.GraphicsDevice)
+    spritebatch <- Some (new SpriteBatch(graphics.GraphicsDevice))
     pixel <- this.Content.Load<Texture2D>("pixel")
 
   override this.Update(gametime) = 
-    updateEvent.Trigger gametime
-    
+    (gametime, readPlayerInput()) 
+    |> UpdateEvent
+    |> gameEvent.Trigger 
+
   override this.Draw(gametime) = 
-    graphics.GraphicsDevice.Clear(Color.White)
-    spritebatch.Begin()
-    spritebatch.Draw(pixel, rect, Color.GreenYellow)
-    spritebatch.End()
+    (spritebatch, pixel)
+    |> DrawEvent
+    |> gameEvent.Trigger
